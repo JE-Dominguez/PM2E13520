@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E13520.Views.HomePage"
+             Title="Agregar Sitio">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="15"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            MaximumWidthRequest="400">
+
+            <Label Text="Nuevo Sitio"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <!-- Imagen del sitio -->
+            <Frame HeightRequest="200"
+                   WidthRequest="300"
+                   CornerRadius="10"
+                   Padding="0"
+                   IsClippedToBounds="True"
+                   HorizontalOptions="Center">
+
+                <Image x:Name="ImgSitio"
+                       Aspect="AspectFill"
+                       BackgroundColor="LightGray" />
+
+            </Frame>
+
+            <Button Text="Tomar Foto"
+                    WidthRequest="300"
+                    Clicked="OnTomarFotoClicked"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HorizontalOptions="Center" />
+
+            <!-- Coordenadas -->
+            <HorizontalStackLayout WidthRequest="300"
+                                   Spacing="10"
+                                   HorizontalOptions="Center">
+
+                <Entry x:Name="EntLatitud"
+                       Placeholder="Latitud"
+                       IsReadOnly="True"
+                       HorizontalOptions="FillAndExpand" />
+
+                <Entry x:Name="EntLongitud"
+                       Placeholder="Longitud"
+                       IsReadOnly="True"
+                       HorizontalOptions="FillAndExpand" />
+
+            </HorizontalStackLayout>
+
+            <!-- Descripción -->
+            <Entry x:Name="EntDescripcion"
+                   WidthRequest="300"
+                   Placeholder="Descripción del sitio"
+                   MaxLength="100"
+                   HorizontalOptions="Center" />
+
+            <Button Text="Guardar Sitio"
+                    WidthRequest="300"
+                    Clicked="OnGuardarClicked"
+                    BackgroundColor="#FF5722"
+                    TextColor="White"
+                    CornerRadius="8"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E13520.Views.MapPage"
+             Title="Mapa del Sitio">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <WebView x:Name="MapaWeb"
+                 Grid.Row="0" />
+
+        <Label x:Name="LblGpsAviso"
+               Grid.Row="1"
+               Text="GPS inactivo o sin permisos"
+               TextColor="Red"
+               HorizontalOptions="Center"
+               IsVisible="False"
+               Margin="10" />
+
+    </Grid>
+
+</ContentPage>

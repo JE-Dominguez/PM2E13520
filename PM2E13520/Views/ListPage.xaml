@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:PM2E13520.Converters"
+             x:Class="PM2E13520.Views.ListPage"
+             Title="Mis Sitios">
+
+    <ContentPage.Resources>
+        <conv:Base64ToImageConverter x:Key="Base64ToImage" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto">
+
+        <CollectionView x:Name="ListaSitios"
+                        Grid.Row="0"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="10,5" Padding="10" CornerRadius="10">
+                        <Grid ColumnDefinitions="80, *, Auto" RowDefinitions="Auto, Auto, Auto">
+
+                            <!-- Imagen -->
+                            <Image Grid.Column="0" Grid.RowSpan="3"
+                                   Source="{Binding Imagen, Converter={StaticResource Base64ToImage}}"
+                                   HeightRequest="70" WidthRequest="70"
+                                   Aspect="AspectFill" />
+
+                            <!-- Descripción -->
+                            <Label Grid.Column="1" Grid.Row="0"
+                                   Text="{Binding Descripcion}"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   Margin="10,0,0,0" />
+
+                            <!-- Coordenadas -->
+                            <Label Grid.Column="1" Grid.Row="1"
+                                   Text="{Binding Latitud, StringFormat='Lat: {0:F5}'}"
+                                   FontSize="12"
+                                   TextColor="Gray"
+                                   Margin="10,0,0,0" />
+
+                            <Label Grid.Column="1" Grid.Row="2"
+                                   Text="{Binding Longitud, StringFormat='Lon: {0:F5}'}"
+                                   FontSize="12"
+                                   TextColor="Gray"
+                                   Margin="10,0,0,0" />
+
+                            <!-- Botones acción -->
+                            <VerticalStackLayout Grid.Column="2" Grid.RowSpan="3" Spacing="5" VerticalOptions="Center">
+
+                                <Button Text="🗺️"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnVerMapaClicked"
+                                        FontSize="18"
+                                        BackgroundColor="Transparent"
+                                        Padding="5" />
+
+                                <Button Text="📤"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnCompartirClicked"
+                                        FontSize="18"
+                                        BackgroundColor="Transparent"
+                                        Padding="5" />
+
+                                <Button Text="🗑️"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnEliminarClicked"
+                                        FontSize="18"
+                                        BackgroundColor="Transparent"
+                                        Padding="5" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
