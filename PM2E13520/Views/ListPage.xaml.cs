@@ -17,12 +17,17 @@ namespace PM2E13520.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            await CargarSitios();
+        }
+        private async Task CargarSitios()
+        {
             ListaSitios.ItemsSource = await _db.ObtenerSitios();
         }
 
+
         private async void OnVerMapaClicked(object sender, EventArgs e)
         {
-            if (sender is Button btn && btn.CommandParameter is Site sitio)
+            if (sender is Frame frame && frame.BindingContext is Site sitio)
             {
                 await Shell.Current.GoToAsync(nameof(MapPage),
                     new Dictionary<string, object> { { "Sitio", sitio } });
@@ -48,7 +53,7 @@ namespace PM2E13520.Views
                 if (confirmar)
                 {
                     await _db.EliminarSitio(sitio);
-                    ListaSitios.ItemsSource = await _db.ObtenerSitios();
+                    await CargarSitios();
                 }
             }
         }

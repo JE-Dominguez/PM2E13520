@@ -16,7 +16,7 @@ namespace PM2E13520.Services
                 var ubicacion = await Geolocation.GetLocationAsync(new GeolocationRequest
                 {
                     DesiredAccuracy = GeolocationAccuracy.Medium,
-                    Timeout = TimeSpan.FromSeconds(10)
+                    Timeout = TimeSpan.FromSeconds(3)
                 });
 
                 return ubicacion;
@@ -40,8 +40,17 @@ namespace PM2E13520.Services
                 if (status != PermissionStatus.Granted)
                     return false;
 
-                var ubicacion = await Geolocation.GetLastKnownLocationAsync();
+                var ubicacion = await Geolocation.GetLocationAsync(new GeolocationRequest
+                {
+                    DesiredAccuracy = GeolocationAccuracy.Medium,
+                    Timeout = TimeSpan.FromSeconds(3)
+                });
+
                 return ubicacion != null;
+            }
+            catch (FeatureNotEnabledException)
+            {
+                return false;
             }
             catch
             {

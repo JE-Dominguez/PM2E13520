@@ -19,12 +19,45 @@ namespace PM2E13520.Views
 
         private async void OnTomarFotoClicked(object sender, EventArgs e)
         {
+            // 1. Permiso de cámara
+            var statusCamara = await Permissions.CheckStatusAsync<Permissions.Camera>();
+            if (statusCamara != PermissionStatus.Granted)
+                statusCamara = await Permissions.RequestAsync<Permissions.Camera>();
+
+            if (statusCamara != PermissionStatus.Granted)
+            {
+                await DisplayAlert("Permiso requerido", "Se necesita acceso a la cámara para tomar la foto.", "OK");
+                return;
+            }
+
+            // 2. Permiso de ubicación
+            var statusUbicacion = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            if (statusUbicacion != PermissionStatus.Granted)
+                statusUbicacion = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+            if (statusUbicacion != PermissionStatus.Granted)
+            {
+                await DisplayAlert("Permiso requerido", "Se necesita acceso a la ubicación para guardar el sitio.", "OK");
+                return;
+            }
+
+            // 3. GPS activo
+            bool gpsActivo = await _gps.GpsActivo();
+            if (!gpsActivo)
+            {
+                await DisplayAlert("GPS inactivo", "Active el GPS antes de tomar la foto.", "OK");
+                return;
+            }
+
+            // 4. Tomar la foto
             _imagenBase64 = await _camera.TomarFotoBase64();
 
             if (_imagenBase64 != null)
             {
                 byte[] bytes = Convert.FromBase64String(_imagenBase64);
                 ImgSitio.Source = ImageSource.FromStream(() => new MemoryStream(bytes));
+                ImgSitio.IsVisible = true;
+                ImgPlaceholder.IsVisible = false;
                 ubicacion();
             }
             else

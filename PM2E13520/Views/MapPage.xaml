@@ -9,13 +9,24 @@
         <WebView x:Name="MapaWeb"
                  Grid.Row="0" />
 
-        <Label x:Name="LblGpsAviso"
-               Grid.Row="1"
+        <Border Grid.Row="1"
+        x:Name="BannerGps"
+        IsVisible="False"
+        StrokeThickness="0"
+        BackgroundColor="#FFEBEE"
+        Padding="14,10">
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label Text="⚠️"
+               FontSize="16"
+               VerticalOptions="Center" />
+                <Label x:Name="LblGpsAviso"
                Text="GPS inactivo o sin permisos"
-               TextColor="Red"
-               HorizontalOptions="Center"
-               IsVisible="False"
-               Margin="10" />
+               FontSize="14"
+               FontAttributes="Bold"
+               TextColor="#C62828"
+               VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
 
     </Grid>
 
